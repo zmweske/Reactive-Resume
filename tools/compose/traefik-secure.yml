@@ -43,6 +43,8 @@ services:
   chrome:
     image: ghcr.io/browserless/chromium:latest
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       HEALTH: "true"
       TOKEN: chrome_token
@@ -70,7 +72,7 @@ services:
 
       # -- URLs --
       PUBLIC_URL: https://example.com
-      STORAGE_URL: https://storage.example.com
+      STORAGE_URL: https://storage.example.com/default
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token

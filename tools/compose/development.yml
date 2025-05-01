@@ -38,7 +38,7 @@ services:
   minio:
     image: minio/minio:latest
     restart: unless-stopped
-    command: server /data
+    command: server --address ":${STORAGE_PORT:-9000}" --console-address ":9001" /data
     ports:
       - ${STORAGE_PORT:-9000}:9000
       - "9001:9001" # Minio Console (Optional)
@@ -54,6 +54,8 @@ services:
   chrome:
     image: ghcr.io/browserless/chromium:latest
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - ${CHROME_PORT:-8080}:3000
     environment:

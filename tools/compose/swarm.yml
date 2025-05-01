@@ -53,6 +53,8 @@ services:
     image: ghcr.io/browserless/chromium:latest
     networks:
       - reactive_resume_network
+    # extra_hosts:  # may be necessary
+    #   - "host.docker.internal:host-gateway"
     environment:
       HEALTH: "true"
       TOKEN: chrome_token
@@ -81,7 +83,7 @@ services:
 
       # -- URLs --
       PUBLIC_URL: https://example.com
-      STORAGE_URL: https://storage.example.com
+      STORAGE_URL: https://storage.example.com/default
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token

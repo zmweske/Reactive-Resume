@@ -32,6 +32,7 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+      STORAGE_BUCKET: default
     labels:
       - traefik.enable=true
       - traefik.http.routers.storage.rule=Host(`storage.example.com`)
@@ -41,6 +42,8 @@ services:
   chrome:
     image: ghcr.io/browserless/chromium:latest
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       HEALTH: "true"
       TOKEN: chrome_token
@@ -66,7 +69,7 @@ services:
 
       # -- URLs --
       PUBLIC_URL: http://example.com
-      STORAGE_URL: http://storage.example.com
+      STORAGE_URL: http://storage.example.com/default
 
       # -- Printer (Chrome) --
       CHROME_TOKEN: chrome_token
